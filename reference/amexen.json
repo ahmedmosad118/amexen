@@ -3979,15 +3979,10 @@
               "example": "en"
             },
             "type": {
-              "type": "integer",
+              "type": "string",
               "example": "pickup",
-              "description": "1->pickup,2->delivery , 3->pickup and delivery , 4->appointment",
-              "enum": [
-                1,
-                2,
-                3,
-                4
-              ]
+              "description": "1->pickup,2->delivery , 3->pickup and delivery , 4->appointment"
+  
             },
             "branches_id": {
               "type": "integer",
@@ -4008,8 +4003,7 @@
               ]
             },
             "plans_permissions": {
-              "type": "number",
-              "format": "double",
+              "type": "boolean",
               "description": "true ->agent can access plans screen , false ->agent can't access plans screen",
               "example": true
             },
@@ -4308,7 +4302,7 @@
                     "example": 2
                   },
                   "day_no": {
-                    "type": "string",
+                    "type": "integer",
                     "example": 2
                   }
                 }
