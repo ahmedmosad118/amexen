@@ -1,0 +1,6031 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": " Previous Verssions -> 1.0.9,1.0.8,1.0.7 ,1.0.6 , 1.0.5 , 1.0.4",
+    "version": "1.1.0",
+    "title": "Amexen",
+    "termsOfService": "http://www.google.com.eg",
+    "contact": {
+      "email": "a.mosaad@hypertech-it.com"
+    },
+    "license": {
+      "name": "Download Api",
+      "url": "http://www.amexen.com/amexen_platform/api/amexen_api_documentation"
+    }
+  },
+  "tags": [
+    {
+      "name": "Agent",
+      "description": "Agents Api "
+    },
+    {
+      "name": "Customer",
+      "description": "Customer Api"
+    }
+  ],
+  "paths": {
+    "/agent/agent_login": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Agent Login",
+        "description": "This API is used to login agent . and it return agent's data and Access token which used in others APIs ",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "formData",
+            "description": "exampl@gmail.com",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "Password",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "client_id",
+            "in": "formData",
+            "description": "You can get your App. client id from Amexen developing team",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "client_secret",
+            "in": "formData",
+            "description": "You can get your App. client secret from Amexen developing team",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_login"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_refresh_token": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Refresh Access Token",
+        "description": "This Api is used to refresh your expired access token",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "refresh_token",
+            "in": "formData",
+            "description": "Your refresh token , you have got it from login process",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "client_id",
+            "in": "formData",
+            "description": "You can get your App. client id from Amexen developing team",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "client_secret",
+            "in": "formData",
+            "description": "You can get your App. client secret from Amexen developing team",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_refresh_token"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_reset_password": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Agent Reset Password",
+        "description": "This Api is used to reset forgotten agent's password",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "example@gmail.com",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agnet_reset_password_response"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/logout": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Logout",
+        "description": "This Api is used to  logout user and delete access token",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "Account_id in login response",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/logout"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/get_agent_info": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Get Agent info",
+        "description": "This API is used to view agent's profile.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Agent id",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/get_agent_info"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_jobs_stats": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Agent Job Stats",
+        "description": "This Api is used to show Agent's jobs statistics in a specific period ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "months",
+            "in": "query",
+            "description": "months of date you want to show stats",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "description": "year of date you want to show stats",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "agent_id",
+            "in": "query",
+            "description": "agent id ",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "It  will be an array like -> [\"Accepted\",\"Started\",\"Arrived\"]",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_jobs_stats"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_travel_summary": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "agent_travel_summary",
+        "description": "agent_travel_summary",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Set date you want to show travel summary data on this way 2019-12-25",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "agent_id",
+            "in": "query",
+            "description": "Agent Id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_travel_summary"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/update_agent_info/{id}": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "update_agent_info",
+        "description": "Update User info AS you want like image nama password",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id only in path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "updated name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "updated name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "description": "updated image",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "current_password",
+            "in": "formData",
+            "description": "Your Old Password if You want update new one",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "new_password",
+            "in": "formData",
+            "description": "New Password that you will update",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "phone_number",
+            "in": "formData",
+            "description": "updated phone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "full_address",
+            "in": "formData",
+            "description": "updated full_address",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/update_agent_info"
+            }
+          },
+          "404": {
+            "description": "Invalid password or invalid enter id"
+          }
+        }
+      }
+    },
+    "/agent/get_agent_fences": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Get Agent Fence ",
+        "description": "This Api return an array of agent Fences ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_fences_list"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/get_agent_earning": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Get Agent Earning",
+        "description": "This Api is used to get Agent Earning in a specific period",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "agent_id",
+            "in": "query",
+            "description": "Agent Id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "description": "Period start date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "description": "Period end date",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/get_agent_earning"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/get_job_details": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Job Details",
+        "description": "This API is used to get job Agent and Task earning and job dimensions ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "job_id",
+            "in": "query",
+            "description": "job_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/get_job_pricing_role"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_job_info": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Job Info",
+        "description": "This API is used to view Job Details.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login) ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "job_id",
+            "in": "query",
+            "description": "job id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/job_info"
+            }
+          },
+          "404": {
+            "description": "Job  not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/task_special_action_list": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Task Special Action List",
+        "description": "This Api is used to get all special action to a specific job",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "job_id",
+            "in": "query",
+            "description": "job_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/task_special_action_list"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/update_custom_field": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "update_custom_field",
+        "description": "update_custom_field ",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "task_id",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "field_name",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "field_type",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "For update image or decoument",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "value",
+            "in": "formData",
+            "description": "for update other values",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "file_name",
+            "in": "formData",
+            "description": "For delete image and decoment send the image name  ",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/update_custom_field"
+            }
+          },
+          "404": {
+            "description": "Invalid password or invalid enter id"
+          }
+        }
+      }
+    },
+    "/agent/agent_review_customer": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Agent Review Customer",
+        "description": "This Api make agent able to rate customer in a specific job ",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "task_id",
+            "in": "formData",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "job_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "customer_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "rate",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "comment",
+            "in": "formData",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/rate_added_successfully"
+            }
+          },
+          "404": {
+            "description": "may job is not exist "
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_jobs": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Agent Jobs",
+        "description": "This API is used to get Agent Jobs. It returns an array of jobs which contain a details of each job.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "agents_id",
+            "in": "query",
+            "description": "agent_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "It  will be an array like -> [\"Accepted\",\"Started\",\"Arrived\"]",
+            "type": "string"
+          },
+          {
+            "name": "job_type",
+            "in": "query",
+            "description": "It  will be an array like -> [\"pickup\",\"appointment_out\",\"appointment_in\"]",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_jobs"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_app_setting": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "agent_app_setting",
+        "description": "Return agent Jobs lsit",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_app_setting"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/update_job_status": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "update_job_status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/update_job_status_body"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/update_job_status"
+            }
+          },
+          "400": {
+            "description": "Bad Request in case of invalid or finish status",
+            "schema": {
+              "$ref": "#/definitions/update_job_status"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/tasks/add_task": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "add_task",
+        "description": "This Api is used to add new task",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "create_event",
+            "in": "formData",
+            "description": "create event parameter ",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "plan_id",
+            "in": "formData",
+            "description": "plan_id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "business_template_id",
+            "in": "formData",
+            "description": "business_template_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "customer_id",
+            "in": "formData",
+            "description": "customer_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "order_reference",
+            "in": "formData",
+            "description": "order_reference",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "order_amount",
+            "in": "formData",
+            "description": "order_amount",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "order_is_paid",
+            "in": "formData",
+            "description": "order_is_paid",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pickup_arrive_before",
+            "in": "formData",
+            "description": "This parameter is required if template_first_phase_type type is pickup or pickup&delivery",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "delivery_arrive_before",
+            "in": "formData",
+            "description": "This parameter is required if template_first_phase_type type is delivery",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "appointment_start_before",
+            "in": "formData",
+            "description": "This parameter is required if template_first_phase_type type is appointment_in or appointment_out",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pickup_address",
+            "in": "formData",
+            "type": "integer",
+            "description": "This parameter is required if template_first_phase_type type is pickup or pickup&delivery and it will be address book  id ",
+            "required": false
+          },
+          {
+            "name": "delivery_address",
+            "in": "formData",
+            "type": "integer",
+            "description": "This parameter is required if template_first_phase_type type is delivery or pickup&delivery and it will be address book  id ",
+            "required": false
+          },
+          {
+            "name": "appointment_address",
+            "in": "formData",
+            "type": "integer",
+            "description": "This parameter is required if template_first_phase_type type is  appointment_out and it will be address book  id ",
+            "required": false
+          },
+          {
+            "name": "custom_field",
+            "in": "formData",
+            "type": "string",
+            "description": "Example : https://jsoneditoronline.org/?id=8d4fa96badb243fa80c672f7466d17d1 ",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/add_event_with_job"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/tasks/upload_custom_field_file": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "upload_custom_field_file",
+        "description": "This Api is used to upload image for new task or update task custom field ",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "field_name",
+            "in": "formData",
+            "description": "field_name from custom fild which return in business template details or in task info   ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "field_type",
+            "in": "formData",
+            "description": "field_type from custom fild which return in business template details or in task info   ",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "Signature",
+              "Image",
+              "Document"
+            ]
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "File you want to upload it ",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "task_id",
+            "in": "formData",
+            "description": "Task id this paramter will be send in update_custom_field screen",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/add_event_with_job"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/tasks/delete_custom_field_file": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "delete_custom_field_file",
+        "description": "This Api is used to delete file for new task or update task custom field ",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "file_url",
+            "in": "formData",
+            "description": "file_url    ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "field_type",
+            "in": "formData",
+            "description": "field_type it will be required once you send task id in update_custom_field screen  ",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "task_id",
+            "in": "formData",
+            "description": "Task id this paramter will be send in update_custom_field screen ",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/add_event_with_job"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/tasks/business_template_list": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "business_template_list",
+        "description": "This Api is used to return all business templete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/business_template_list"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/tasks/business_template_details": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "business_template_details",
+        "description": "This Api is used to return  business templete Details",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "business_template_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/business_template_details"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/tasks/agent_available_slots": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "agent_available_slots",
+        "description": "This Api is used to return all agent_available_slots",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "date -> 2020-01-12",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_avilable_slots"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customer/customers_list": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "customers_list",
+        "description": "List Of customers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/customers_list"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customer/customer_details": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "customer_details",
+        "description": "customer_details",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "customer_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/customer_object_details"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customer/customer_address_book_list": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "customer_address_book_list",
+        "description": "Lis address book for customer which in agent's fences",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "customer_id",
+            "in": "query",
+            "description": "customer_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/addess_book_list"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customer/update_customer/{id}": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "update_customer",
+        "description": "update_customer",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone_number",
+            "in": "formData",
+            "description": "phone_number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "full_address",
+            "in": "formData",
+            "description": "full_address",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "best_time_of_visit",
+            "in": "formData",
+            "description": "best_time_of_visit",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_updated"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customer/add_customer": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "add_customer",
+        "description": "add_customer",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone_number",
+            "in": "formData",
+            "description": "phone_number",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "address_book",
+            "in": "formData",
+            "description": "address_book is an json array like : https://jsoneditoronline.org/?id=97c041f374cc4bf097630ebc1dbe55f8",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_added"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customer/add_customer_address_book": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "add_customer_address_book",
+        "description": "add_customer_address_book",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "formData",
+            "description": "location",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "latitude",
+            "in": "formData",
+            "description": "latitude",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "longitude",
+            "in": "formData",
+            "description": "longitude",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "customer_id",
+            "in": "formData",
+            "description": "customer_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "fence_id",
+            "in": "formData",
+            "description": "fence_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_added"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/assign_agent_on_job": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Assign Agent on Job",
+        "description": "This Api is used to Assign agent on a specific job",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "job_id",
+            "in": "formData",
+            "description": "Job Id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "agent_id",
+            "in": "formData",
+            "description": "Selected Agent to be assigned",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_added"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customers_groups/customers_groups_list": {
+      "get": {
+        "tags": [
+          "Customers Groups"
+        ],
+        "summary": "customers_groups_list",
+        "description": "customers_groups_list",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/customers_groups_list"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customers_groups/customers_group_details": {
+      "get": {
+        "tags": [
+          "Customers Groups"
+        ],
+        "summary": "customers_group_details",
+        "description": "customers_group_details",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "group_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/customers_group_details_object"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customers_groups/ungrouped_customers": {
+      "get": {
+        "tags": [
+          "Customers Groups"
+        ],
+        "summary": "ungrouped_customers",
+        "description": "ungrouped_customers",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/customer_object_details"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customer/delete_customer": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "delete_customer",
+        "description": "delete_customer",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ids",
+            "in": "formData",
+            "description": "ids here [1,2,3] The closest example is array members in added new group ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_delete"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/plan_events/add_plan": {
+      "post": {
+        "tags": [
+          "Plan Events"
+        ],
+        "summary": "add new plan",
+        "description": "This Api is used to add new plan",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start_date",
+            "in": "formData",
+            "description": "start_date (2020-01-01)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "formData",
+            "description": "end_date (2020-01-21)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_added"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/plan_events/update_plan/{id}": {
+      "post": {
+        "tags": [
+          "Plan Events"
+        ],
+        "summary": " Update plan",
+        "description": "This Api is used to Update plan",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start_date",
+            "in": "formData",
+            "description": "start_date (2020-01-01)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end_date",
+            "in": "formData",
+            "description": "end_date (2020-01-21)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_updated"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/plan_events/delete_event": {
+      "post": {
+        "tags": [
+          "Plan Events"
+        ],
+        "summary": " delete event",
+        "description": "This Api is used to delete event",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "event_id",
+            "in": "formData",
+            "description": "event_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_delete"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/plan_events/delete_plan": {
+      "post": {
+        "tags": [
+          "Plan Events"
+        ],
+        "summary": " delete_plan",
+        "description": "This Api is used to delete_plan",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "id",
+            "in": "formData",
+            "description": "plan id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_delete"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/plan_events/plans_list": {
+      "get": {
+        "tags": [
+          "Plan Events"
+        ],
+        "summary": "Plan List",
+        "description": "This API is used to return all Agent's plans",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/plans_list"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/plan_events/get_slots_by_date": {
+      "get": {
+        "tags": [
+          "Plan Events"
+        ],
+        "summary": " get_slots_by_date ",
+        "description": "This API is used to return Agent's Slots by date and included event of each slot ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "plan_id",
+            "in": "query",
+            "description": "plan_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "date - 2020-07-01",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/slots_by_date"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/plan_events/update_day_slots": {
+      "post": {
+        "tags": [
+          "Plan Events"
+        ],
+        "summary": " update_day_slots ",
+        "description": "This API is used to update slots events or ar add new slots events",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "plan_id",
+            "in": "query",
+            "description": "plan_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "date - 2020-07-01",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slots",
+            "in": "query",
+            "description": "seems like slots array in get slots by date but you will be reformat it again and send your updates ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/slots_by_date"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/update_agent_slots": {
+      "post": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "update_agent_slots",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "agent_id",
+            "in": "formData",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "date",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slots",
+            "in": "formData",
+            "description": "is array of slots in api get_agent_slots  in  a certain day  after updated on it  ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "repeat_on",
+            "in": "formData",
+            "description": "not required and is array of days that will repeated this slots ",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "for_ever",
+            "in": "formData",
+            "description": "not required and it will be true or false",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/update_job_status"
+            }
+          },
+          "400": {
+            "description": "Bad Request in case of invalid or finish status",
+            "schema": {
+              "$ref": "#/definitions/update_job_status"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customers_groups/add_customers_group": {
+      "post": {
+        "tags": [
+          "Customers Groups"
+        ],
+        "summary": "add_customers_group",
+        "description": "add_customers_group",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "customers",
+            "in": "formData",
+            "description": "from avialbe customers api ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_added"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customers_groups/update_customers_group/{id}": {
+      "post": {
+        "tags": [
+          "Customers Groups"
+        ],
+        "summary": "update_customers_group",
+        "description": "update_customers_group",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id only in path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "customers",
+            "in": "formData",
+            "description": "from avialbe customers api ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_updated"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/customers_groups/delete_customers_group": {
+      "post": {
+        "tags": [
+          "Customers Groups"
+        ],
+        "summary": "delete_customers_group",
+        "description": "delete_customers_group",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ids",
+            "in": "formData",
+            "description": "ids here [1,2,3] The closest example is array members in added new group(Plamx) ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/data_delete"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/agent_scheduled_slots": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "Agent Scheduled slots",
+        "description": "This Api is is used to get agent daily slots ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "agent_id",
+            "in": "query",
+            "description": "agent_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "date_from",
+            "in": "query",
+            "description": "date",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "day_numbers",
+            "in": "query",
+            "description": "day_number",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/agent_and_slots"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    },
+    "/agent/get_task_pricing_details": {
+      "get": {
+        "tags": [
+          "Agent"
+        ],
+        "summary": "get_task_pricing_details",
+        "description": "Return Slot deitailes",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer +accessToken (You can get this Access Token from login)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "AccountId",
+            "in": "header",
+            "description": "AccountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "task_id",
+            "in": "query",
+            "description": "task_id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/get_task_pricing_detailes"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "422": {
+            "description": "Error in validation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "agent_login_body": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "islam@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "1234567"
+        },
+        "client_id": {
+          "type": "integer",
+          "example": 5
+        },
+        "client_secret": {
+          "type": "string",
+          "example": "secret"
+        }
+      }
+    },
+    "agent_refresh_token_body": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "refresh_token": {
+          "type": "string",
+          "example": "def502006371ac88051692639579aa73f710f87b5df1ae980a6e19241a79894c47a55b06f0b944acd65c16195738d7b8a180c9c04f0a9b198ff0084b667d455b6efc8347a8bd9c7297057176371460f177bab71274fc82964c3fb08272140446795f3dda6d9e2f0be9df22abd40961a75187ccc50e17a89e40bb4be79974f01a0449f043cf35649141cad0302a5306d1da1c24e5c43e6232ed85ec4950e200ed2195b4af05490b5ff32a0d3bfbc3994155ba099912ebab7c654357ad9a25750dd1b4f5664def1dfaf8a5edd6335189fadac28c1a11aaeaad6426d2fc67b0e0f1161d88affa8c13c19c9e9c87b88d1eb9d6a34aa08c20c4758e319114ece688209c76314991bf25d7eb3bb694890c1d3866507401ef952331e75c210e3d236636308a12734d97e46338aaa4f4334040f4268bfb2a99f6ff5b88ee1d3d6591765e75f9c67f76196ad644637cd677b538052ba53449222e7ddc9705fc0435c9783b30"
+        },
+        "client_id": {
+          "type": "integer",
+          "example": 5
+        },
+        "client_secret": {
+          "type": "string",
+          "example": "secret"
+        }
+      }
+    },
+    "agent_reset_password": {
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "hossam@gmail.com"
+        }
+      }
+    },
+    "agent_login": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "access_token": {
+              "type": "object",
+              "required": [
+                "name",
+                "photoUrls"
+              ],
+              "properties": {
+                "token_type": {
+                  "type": "string",
+                  "example": "Bearer"
+                },
+                "expires_in": {
+                  "type": "integer",
+                  "example": 31536000
+                },
+                "access_token": {
+                  "type": "string",
+                  "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImMzMzc2OWUzOTRhYmVhNTA0ZjRmZjZmYWEyNWEzYjA1ZmNkMTE5N2IzMTkyZTk3ODljNGUzNjRkYjY4OTgzYjAzNjA4ZWQxZjU3MmVjNDRjIn0.eyJhdWQiOiI2IiwianRpIjoiYzMzNzY5ZTM5NGFiZWE1MDRmNGZmNmZhYTI1YTNiMDVmY2QxMTk3YjMxOTJlOTc4OWM0ZTM2NGRiNjg5ODNiMDM2MDhlZDFmNTcyZWM0NGMiLCJpYXQiOjE1MzE5MTU4NTIsIm5iZiI6MTUzMTkxNTg1MiwiZXhwIjoxNTYzNDUxODUyLCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.WYT5mFMC80Ob19bMeEipN1FiXkN8UoxmNO1QnBcO4MTuoN4W5kPtZgHOjsjnkXu4cGvqxtmRPoI08clrk1hMFg"
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "example": "def502006371ac88051692639579aa73f710f87b5df1ae980a6e19241a79894c47a55b06f0b944acd65c16195738d7b8a180c9c04f0a9b198ff0084b667d455b6efc8347a8bd9c7297057176371460f177bab71274fc82964c3fb08272140446795f3dda6d9e2f0be9df22abd40961a75187ccc50e17a89e40bb4be79974f01a0449f043cf35649141cad0302a5306d1da1c24e5c43e6232ed85ec4950e200ed2195b4af05490b5ff32a0d3bfbc3994155ba099912ebab7c654357ad9a25750dd1b4f5664def1dfaf8a5edd6335189fadac28c1a11aaeaad6426d2fc67b0e0f1161d88affa8c13c19c9e9c87b88d1eb9d6a34aa08c20c4758e319114ece688209c76314991bf25d7eb3bb694890c1d3866507401ef952331e75c210e3d236636308a12734d97e46338aaa4f4334040f4268bfb2a99f6ff5b88ee1d3d6591765e75f9c67f76196ad644637cd677b538052ba53449222e7ddc9705fc0435c9783b30"
+                }
+              }
+            },
+            "user_info": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Agent Name"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "example@gmail.com"
+                },
+                "full_address": {
+                  "type": "string",
+                  "example": "Address Name"
+                },
+                "city": {
+                  "type": "string",
+                  "example": "Address Name"
+                },
+                "image": {
+                  "type": "string",
+                  "example": ""
+                },
+                "phone_number": {
+                  "type": "string",
+                  "example": "+201278962014"
+                },
+                "user_channel": {
+                  "type": "string",
+                  "example": "agnet_1"
+                },
+                "current_lat": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 30.5
+                },
+                "current_long": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 30.25
+                },
+                "is_online": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "is_in_ride": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "is_in_decision": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "default_lang": {
+                  "type": "string",
+                  "example": "en"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "pickup",
+                  "enum": [
+                    "pickup",
+                    "delivery",
+                    "pickup_delivery",
+                    "appointment_in",
+                    "appointment_out"
+                  ]
+                },
+                "branches_id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "account_id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "schedule_permissions": {
+                  "type": "integer",
+                  "description": "1->Agent can't access , 2->Agent view only , 3->Agent can view & edit",
+                  "example": 1,
+                  "enum": [
+                    1,
+                    2,
+                    3
+                  ]
+                },
+                "plans_permissions": {
+                  "type": "boolean",
+                  "description": "true ->agent can access plans screen , false ->agent can't access plans screen",
+                  "example": true
+                },
+                "status": {
+                  "type": "integer",
+                  "example": 1,
+                  "description": "0 inactive , 1 active",
+                  "enum": [
+                    1,
+                    0
+                  ]
+                },
+                "device_type": {
+                  "type": "string",
+                  "example": ""
+                },
+                "device_version": {
+                  "type": "string",
+                  "example": ""
+                },
+                "created_at": {
+                  "type": "string",
+                  "example": "2018-07-18 13:27:35"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": ""
+                },
+                "vehicle": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "vehicle_model": {
+                      "type": "string",
+                      "example": "KIA"
+                    },
+                    "vehicle_licence_plate": {
+                      "type": "string",
+                      "example": "157-78546"
+                    },
+                    "vehicle_color": {
+                      "type": "string",
+                      "example": "red"
+                    },
+                    "vehicle_types_id": {
+                      "type": "integer",
+                      "example": 1
+                    }
+                  }
+                },
+                "team": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Test-team"
+                    },
+                    "tag": {
+                      "type": "string",
+                      "example": "test"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "logout": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Logout success"
+            }
+          }
+        }
+      }
+    },
+    "add_event_with_job": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully "
+            }
+          }
+        },
+        "data": {
+          "$ref": "#/definitions/slots_date"
+        }
+      }
+    },
+    "agent_avilable_slots": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "07:00"
+          }
+        }
+      }
+    },
+    "customer_object_details": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "mohammed"
+            },
+            "email": {
+              "type": "string",
+              "example": "mohammed@test.com"
+            },
+            "phone_number": {
+              "type": "string",
+              "example": "1272091656"
+            },
+            "full_address": {
+              "type": "string",
+              "example": "tanta"
+            },
+            "address_book": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/address_book"
+              }
+            }
+          }
+        }
+      }
+    },
+    "customers_groups_list": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/customers_groups_list_object"
+          }
+        }
+      }
+    },
+    "customers_groups_list_object": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "group_name"
+        }
+      }
+    },
+    "business_template_details": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Templete Name"
+            },
+            "template_first_phase": {
+              "type": "string",
+              "example": "appointment_in",
+              "enum": [
+                "pickup",
+                "delivery",
+                "pickup_delivery",
+                "appointment_in",
+                "appointment_out"
+              ]
+            },
+            "custom_fields": {
+              "$ref": "#/definitions/custom_fields"
+            }
+          }
+        }
+      }
+    },
+    "business_template_list": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/business_templete"
+          }
+        }
+      }
+    },
+    "business_templete": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Templete Name"
+        }
+      }
+    },
+    "customers_list": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/customer_list_object"
+          }
+        }
+      }
+    },
+    "plan_details": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Plan A"
+            },
+            "description": {
+              "type": "string",
+              "example": "Plan description"
+            },
+            "start_date": {
+              "type": "string",
+              "example": "2019-08-24"
+            },
+            "end_date": {
+              "type": "string",
+              "example": "2019-08-27"
+            }
+          }
+        }
+      }
+    },
+    "plans_list": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Plan A"
+            },
+            "description": {
+              "type": "string",
+              "example": "Plan description"
+            },
+            "start_date": {
+              "type": "string",
+              "example": "2019-08-24"
+            },
+            "end_date": {
+              "type": "string",
+              "example": "2019-08-27"
+            }
+          }
+        }
+      }
+    },
+    "plan_object": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Plan A"
+        },
+        "description": {
+          "type": "string",
+          "example": "Plan description"
+        },
+        "start_date": {
+          "type": "string",
+          "example": "2019-08-24"
+        },
+        "end_date": {
+          "type": "string",
+          "example": "2019-08-27"
+        }
+      }
+    },
+    "customers_group_details_object": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Group"
+            },
+            "description": {
+              "type": "string",
+              "example": "Group description"
+            },
+            "customers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/customer_list_object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "customer_list_object": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Ahmed"
+        },
+        "image": {
+          "type": "string",
+          "example": "https://amexen.com/amexen_platform/src/amexen_8WIrwJ_acc1/Customers/images/8048155652446756300233_2141063212637923_1855748917837168640_n.jpg"
+        },
+        "description": {
+          "type": "string",
+          "example": "1272091656"
+        },
+        "customer_group": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Group"
+            },
+            "description": {
+              "type": "string",
+              "example": "Group description"
+            }
+          }
+        },
+        "phone_number": {
+          "type": "string",
+          "example": "1272091656"
+        },
+        "address_book": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/address_book"
+          }
+        }
+      }
+    },
+    "addess_book_list": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/address_book"
+          }
+        }
+      }
+    },
+    "address_book": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Address Name"
+        },
+        "location": {
+          "type": "string",
+          "example": "Address location"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "example": 30.5
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "example": 30.5
+        },
+        "fence": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Fence Name"
+            },
+            "code": {
+              "type": "string",
+              "example": "Fence Code"
+            },
+            "status": {
+              "type": "integer",
+              "example": 1
+            },
+            "vertices": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 310.25741
+                  },
+                  "lng": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 30.25587
+                  }
+                }
+              }
+            }
+          }
+        },
+        "is_default": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "agent_refresh_token": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "token_type": {
+              "type": "string",
+              "example": "Bearer"
+            },
+            "expires_in": {
+              "type": "integer",
+              "example": 31536000
+            },
+            "access_token": {
+              "type": "string",
+              "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIzNmM0YzNjMDllN2VmODM3NzAyZjVlZGZkMTg3ZGZhODEyZjdjYzRlZmI3MGZlNmRkMjJlYzAzNDNkNjhkODRhYTQzY2M1ZDNmMjJjYmIyIn0.eyJhdWQiOiI2IiwianRpIjoiMjM2YzRjM2MwOWU3ZWY4Mzc3MDJmNWVkZmQxODdkZmE4MTJmN2NjNGVmYjcwZmU2ZGQyMmVjMDM0M2Q2OGQ4NGFhNDNjYzVkM2YyMmNiYjIiLCJpYXQiOjE1MzE5MDQxNjMsIm5iZiI6MTUzMTkwNDE2MywiZXhwIjoxNTYzNDQwMTYzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.tl3zfQCvylV8QofFEnSTAraHhknR6ztwHFc78Oj25-U0uY2wKngPbnQ0St1nPqaamRjjIqtNZ6pnGlZYvEOlgg"
+            },
+            "refresh_token": {
+              "type": "string",
+              "example": "def50200d654b81d14b60eed77f9517bdfc8cec6eab1c4a38f55bef69d919996ef28fe359d340ed0e27c9d1123ca6bb43c03a865d7dbbecacc29a32a2aa9b322bcc94489544aeed41a37c9c7ec39fcc1a61368f65607e87bcf0cc2e0d676d183e0c4f0d70fe01ed1f7fafebb85b25c8f40e736753ab145d48fb2d7e7863de55b0b8a21ca950dba40d036f85cb779b7b571da68118900f51d75b2eee01e9a12dbacd94705805255e930440564974e465176d5ea070c2a64326ae9f358939a3b9cf1f527d4a392884869d981e037318c76dd813bdbe88cf4018292e112de6be14f673e9fb792c72f8b8baec6a729540fbb8de6d369f87b7af23b13d15236b5717d5cd88147c7f17e995a14c340bd61435965d5ef12b270365fcaa97bc625b4505cc1d331a0acbd281450a124f594890eacfeefc6ad467716a8fb7ae29c55bf59a6fe07fb91f55fe02653c41a2c417243bdd68ff8febbf723da3dec886fda5dfb07a0"
+            }
+          }
+        }
+      }
+    },
+    "get_agent_info": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "name": {
+              "type": "string",
+              "example": "Islam azouz"
+            },
+            "email": {
+              "type": "string",
+              "example": "islam@gmail.com"
+            },
+            "full_address": {
+              "type": "string",
+              "example": "Tanta"
+            },
+            "city": {
+              "type": "string",
+              "example": "Tanta"
+            },
+            "image": {
+              "type": "string",
+              "example": ""
+            },
+            "phone_number": {
+              "type": "string",
+              "example": "01273734701"
+            },
+            "user_channel": {
+              "type": "string",
+              "example": "agnet_1"
+            },
+            "current_lat": {
+              "type": "number",
+              "format": "double",
+              "example": 30.5
+            },
+            "current_long": {
+              "type": "number",
+              "format": "double",
+              "example": 30.25
+            },
+            "is_online": {
+              "type": "integer",
+              "example": 1
+            },
+            "is_in_ride": {
+              "type": "integer",
+              "example": 1
+            },
+            "is_in_decision": {
+              "type": "integer",
+              "example": 1
+            },
+            "default_lang": {
+              "type": "string",
+              "example": "en"
+            },
+            "type": {
+              "type": "integer",
+              "example": "pickup",
+              "description": "1->pickup,2->delivery , 3->pickup and delivery , 4->appointment",
+              "enum": [
+                1,
+                2,
+                3,
+                4
+              ]
+            },
+            "branches_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "account_id": {
+              "type": "integer",
+              "example": 1
+            },
+            "schedule_permissions": {
+              "type": "integer",
+              "description": "1->Agent can't access , 2->Agent view only , 3->Agent can view & edit",
+              "example": 1,
+              "enum": [
+                1,
+                2,
+                3
+              ]
+            },
+            "plans_permissions": {
+              "type": "number",
+              "format": "double",
+              "description": "true ->agent can access plans screen , false ->agent can't access plans screen",
+              "example": true
+            },
+            "status": {
+              "type": "integer",
+              "description": "0 inactive , 1 active",
+              "enum": [
+                1,
+                0
+              ]
+            },
+            "device_type": {
+              "type": "string",
+              "example": ""
+            },
+            "device_version": {
+              "type": "string",
+              "example": ""
+            },
+            "created_at": {
+              "type": "string",
+              "example": "2018-07-18 13:27:35"
+            },
+            "updated_at": {
+              "type": "string",
+              "example": ""
+            },
+            "vehicle": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "vehicle_model": {
+                  "type": "string",
+                  "example": "KIA"
+                },
+                "vehicle_licence_plate": {
+                  "type": "string",
+                  "example": "157-78546"
+                },
+                "vehicle_color": {
+                  "type": "string",
+                  "example": "red"
+                },
+                "vehicle_types_id": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            },
+            "team": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Test-team"
+                },
+                "tag": {
+                  "type": "string",
+                  "example": "test"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "get_agent_earning": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "total_earning": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "jobs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/job_earning"
+              }
+            },
+            "daily_earning": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/daily_earning"
+              }
+            }
+          }
+        }
+      }
+    },
+    "get_job_pricing_role": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "Agent_Earning": {
+              "$ref": "#/definitions/job_calculation"
+            },
+            "Task_Pricing": {
+              "$ref": "#/definitions/job_calculation"
+            },
+            "job_dimensions": {
+              "$ref": "#/definitions/job_dimensions_earning"
+            }
+          }
+        }
+      }
+    },
+    "get_task_pricing_detailes": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "task_amount": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "task_due_amount": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "task_paid_amount": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "order_amount": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "order_paid_amount": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "order_due_amount": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "total_amount": {
+              "type": "number",
+              "example": 450,
+              "format": "double"
+            },
+            "distance": {
+              "type": "string",
+              "example": "25 km"
+            },
+            "time": {
+              "type": "string",
+              "example": "12 min"
+            },
+            "details": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/job_earning_details"
+              }
+            }
+          }
+        }
+      }
+    },
+    "agent_jobs_stats": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "days": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "pending": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "completed": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "day_no": {
+                    "type": "string",
+                    "example": 2
+                  }
+                }
+              }
+            },
+            "total_pending": {
+              "type": "integer",
+              "example": 1
+            },
+            "total_completed": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        }
+      }
+    },
+    "agent_travel_summary": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "total_completed_jobs": {
+              "type": "integer",
+              "example": 1
+            },
+            "total_time": {
+              "type": "number",
+              "format": "double",
+              "example": 10.2
+            },
+            "distance": {
+              "type": "number",
+              "format": "double",
+              "example": 11.2
+            }
+          }
+        }
+      }
+    },
+    "update_agent_info": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Update successfully"
+            }
+          }
+        }
+      }
+    },
+    "agnet_reset_password_response": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Your Password has send to your mail please check your mail box"
+            }
+          }
+        }
+      }
+    },
+    "agent_fences_list": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Fence Name"
+              },
+              "code": {
+                "type": "string",
+                "example": "Fence Code"
+              },
+              "status": {
+                "type": "integer",
+                "example": 1
+              },
+              "vertices": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "lat": {
+                      "type": "number",
+                      "format": "double",
+                      "example": 310.25741
+                    },
+                    "lng": {
+                      "type": "number",
+                      "format": "double",
+                      "example": 30.25587
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "job_info": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "$ref": "#/definitions/job_details"
+        }
+      }
+    },
+    "job_details": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "tasks_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "agents_id": {
+          "type": "integer",
+          "example": 5
+        },
+        "branches_id": {
+          "type": "integer",
+          "example": 5
+        },
+        "visible_from_task_statuses_id": {
+          "type": "integer",
+          "example": 5
+        },
+        "type": {
+          "type": "string",
+          "example": "pickup",
+          "description": "pickup , delivery, pickup_delivery , appointment_in , appointment_out ,operation"
+        },
+        "status": {
+          "$ref": "#/definitions/job_status"
+        },
+        "is_Assigned": {
+          "type": "integer",
+          "example": 1,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Accepted": {
+          "type": "integer",
+          "example": 1,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Started": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Arrived": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Picked": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Finished": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Ready": {
+          "type": "integer",
+          "example": 1
+        },
+        "is_Visible": {
+          "type": "integer",
+          "example": 1
+        },
+        "should_get_due_amount": {
+          "type": "boolean",
+          "example": false
+        },
+        "is_In-Progress": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Started_At_Delivery": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> false  1 --> true  "
+        },
+        "is_Arrived_At_Delivery": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> false  1 --> true  "
+        },
+        "total_time": {
+          "type": "string",
+          "example": "07:00:00.000000"
+        },
+        "start_time": {
+          "type": "string",
+          "example": "12:11 PM"
+        },
+        "end_time": {
+          "type": "string",
+          "example": "01:11 AM"
+        },
+        "time_string": {
+          "type": "string",
+          "example": "12:11 PM to 01:11 AM"
+        },
+        "job_code": {
+          "type": "string",
+          "example": "J-47"
+        },
+        "job_type_name": {
+          "type": "string",
+          "example": "DEL"
+        },
+        "job_date": {
+          "type": "string",
+          "example": ""
+        },
+        "rv_agent_on_customer": {
+          "type": "integer",
+          "example": 1
+        },
+        "rv_customer_on_agent": {
+          "type": "integer",
+          "example": 1
+        },
+        "next_status": {
+          "$ref": "#/definitions/job_status"
+        },
+        "job_address": {
+          "$ref": "#/definitions/job_addresses"
+        },
+        "job_dimensions": {
+          "$ref": "#/definitions/job_dimensions"
+        },
+        "task": {
+          "$ref": "#/definitions/task_details"
+        }
+      }
+    },
+    "job_mini": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "type": {
+          "type": "string",
+          "example": "pickup",
+          "description": "pickup , delivery, pickup_delivery , appointment_in , appointment_out ,operation"
+        },
+        "agents_id": {
+          "type": "integer",
+          "example": 6
+        },
+        "start_time": {
+          "type": "string",
+          "example": "12:11 PM"
+        },
+        "end_time": {
+          "type": "string",
+          "example": "01:11 AM"
+        },
+        "time_string": {
+          "type": "string",
+          "example": "12:11 PM to 01:11 AM"
+        },
+        "status": {
+          "$ref": "#/definitions/job_status"
+        },
+        "job_code": {
+          "type": "string",
+          "example": "J-47"
+        },
+        "job_type_name": {
+          "type": "string",
+          "example": "DEL"
+        },
+        "job_date": {
+          "type": "string",
+          "example": ""
+        },
+        "is_Ready": {
+          "type": "integer",
+          "example": 1
+        },
+        "job_addresses": {
+          "$ref": "#/definitions/job_addresses"
+        }
+      }
+    },
+    "update_custom_field": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Update successfully"
+            }
+          }
+        },
+        "additional": {
+          "type": "string",
+          "example": "http://amexen.com/amexen_platform/api_documentation/"
+        }
+      }
+    },
+    "rate_added_successfully": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Added successfully"
+            }
+          }
+        }
+      }
+    },
+    "update_job_status": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Update successfully"
+            }
+          }
+        },
+        "data": {
+          "$ref": "#/definitions/job_details"
+        }
+      }
+    },
+    "agent_jobs": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/job_mini"
+          }
+        }
+      }
+    },
+    "job_dimensions": {
+      "type": "object",
+      "properties": {
+        "estimated_time_to_origin": {
+          "type": "number",
+          "format": "double",
+          "example": 20.5
+        },
+        "estimated_time_to_destination": {
+          "type": "number",
+          "format": "double",
+          "example": 20.5
+        },
+        "estimated_distance_to_origin": {
+          "type": "string",
+          "example": "6"
+        },
+        "estimated_distance_to_destination": {
+          "type": "string",
+          "example": "20"
+        },
+        "actual_time_to_origin": {
+          "type": "number",
+          "format": "double",
+          "example": 20.5
+        },
+        "actual_time_to_destination": {
+          "type": "number",
+          "format": "double",
+          "example": 20.5
+        },
+        "actual_distance_to_origin": {
+          "type": "string",
+          "example": "6"
+        },
+        "actual_distance_to_destination": {
+          "type": "string",
+          "example": "6"
+        }
+      }
+    },
+    "agent_app_setting": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "filter": {
+              "$ref": "#/definitions/setting_filter"
+            }
+          }
+        }
+      }
+    },
+    "slots_by_date": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "slots_time": {
+              "type": "integer",
+              "example": 30
+            },
+            "slots": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/slots_date"
+              }
+            }
+          }
+        }
+      }
+    },
+    "slots_date": {
+      "properties": {
+        "time": {
+          "type": "string",
+          "example": "01:30"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "has_job": {
+          "type": "boolean",
+          "example": true
+        },
+        "event": {
+          "$ref": "#/definitions/event_slot"
+        }
+      }
+    },
+    "event_slot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "can_edit": {
+          "type": "boolean",
+          "example": true
+        },
+        "can_delete": {
+          "type": "boolean",
+          "example": true
+        },
+        "job": {
+          "$ref": "#/definitions/job_data"
+        },
+        "customer": {
+          "$ref": "#/definitions/customer"
+        }
+      }
+    },
+    "customer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "customer name"
+        },
+        "phone_number": {
+          "type": "string",
+          "example": "customer phone"
+        }
+      }
+    },
+    "job_data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "task_id": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "agent_and_slots": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/slots_data"
+          }
+        }
+      }
+    },
+    "slots_data": {
+      "properties": {
+        "date": {
+          "type": "string",
+          "example": "01:30"
+        },
+        "slots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/slots"
+          }
+        }
+      }
+    },
+    "slots": {
+      "properties": {
+        "time": {
+          "type": "string",
+          "example": "01:30"
+        },
+        "active": {
+          "type": "integer",
+          "example": 0
+        }
+      }
+    },
+    "setting_filter": {
+      "properties": {
+        "job_types": {
+          "$ref": "#/definitions/job_types"
+        }
+      }
+    },
+    "job_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "job_statuses": {
+            "$ref": "#/definitions/job_statuses"
+          },
+          "job_type": {
+            "type": "string",
+            "example": "Started"
+          },
+          "job_type_name": {
+            "type": "string",
+            "example": "DEL"
+          }
+        }
+      }
+    },
+    "task_special_action_list": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Returned successfully"
+            }
+          }
+        },
+        "data": {
+          "$ref": "#/definitions/special_actions"
+        }
+      }
+    },
+    "special_actions": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "action_name": {
+          "type": "string",
+          "example": "reason 1"
+        }
+      }
+    },
+    "job_earning": {
+      "type": "object",
+      "properties": {
+        "job_dimensions": {
+          "$ref": "#/definitions/job_dimensions_earning"
+        },
+        "job_calculations": {
+          "$ref": "#/definitions/job_calculations"
+        },
+        "type": {
+          "type": "string",
+          "example": "pickup"
+        },
+        "status": {
+          "type": "string",
+          "example": "Finished"
+        },
+        "jobs_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "start_time": {
+          "type": "string",
+          "example": "10:01 Am"
+        },
+        "end_time": {
+          "type": "string",
+          "example": "10:01 Am"
+        },
+        "time_string": {
+          "type": "string",
+          "example": "10:01 Am"
+        }
+      }
+    },
+    "job_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Started"
+          },
+          "title": {
+            "type": "string",
+            "example": "Start"
+          },
+          "is_final_status": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      }
+    },
+    "job_status": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Started"
+        },
+        "order": {
+          "type": "integer",
+          "example": 1
+        },
+        "color": {
+          "type": "string",
+          "example": "#2020F5"
+        },
+        "btn_ok_title": {
+          "type": "string",
+          "example": "Start"
+        },
+        "btn_cancel_title": {
+          "type": "string",
+          "example": "Fail"
+        },
+        "job_validate_required": {
+          "type": "boolean",
+          "example": true
+        },
+        "job_can_fail": {
+          "type": "boolean",
+          "example": true
+        },
+        "job_can_edit_customfields": {
+          "type": "boolean",
+          "example": true
+        },
+        "job_ask_fail_reason": {
+          "type": "boolean",
+          "example": true
+        },
+        "is_final_status": {
+          "type": "boolean",
+          "example": true
+        },
+        "show_address_for": {
+          "type": "string",
+          "example": "origin",
+          "enum": [
+            "origin",
+            "destination",
+            "none"
+          ]
+        },
+        "show_time_for": {
+          "type": "string",
+          "example": "pickup",
+          "enum": [
+            "pickup",
+            "delivery",
+            "appointment"
+          ]
+        },
+        "journey": {
+          "type": "string",
+          "example": "pickup",
+          "enum": [
+            "start_journey",
+            "end_journey",
+            "null"
+          ]
+        },
+        "wating": {
+          "type": "string",
+          "example": "not set yet"
+        },
+        "progress": {
+          "type": "string",
+          "example": "not set yet"
+        },
+        "price_role": {
+          "type": "string",
+          "example": "not set yet"
+        }
+      }
+    },
+    "job_dimensions_earning": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "string",
+          "example": "20 min"
+        },
+        "distance": {
+          "type": "string",
+          "example": "20 km"
+        }
+      }
+    },
+    "job_calculations": {
+      "type": "object",
+      "properties": {
+        "final_fare": {
+          "type": "integer",
+          "example": 10
+        },
+        "base_fare": {
+          "type": "integer",
+          "example": 1
+        },
+        "waiting_fare": {
+          "type": "integer",
+          "example": 12
+        },
+        "duration_fare": {
+          "type": "integer",
+          "example": 5
+        },
+        "distance_fare": {
+          "type": "integer",
+          "example": 5
+        },
+        "deduction": {
+          "type": "integer",
+          "example": 5
+        }
+      }
+    },
+    "task_details": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "order_reference": {
+          "type": "string",
+          "example": "test"
+        },
+        "description": {
+          "type": "string",
+          "example": "test description"
+        },
+        "task_code": {
+          "type": "string",
+          "example": "test"
+        },
+        "payment_type": {
+          "type": "string",
+          "example": "COD"
+        },
+        "task_amount": {
+          "type": "number",
+          "format": "double",
+          "example": 200.5
+        },
+        "order_amount": {
+          "type": "number",
+          "format": "double",
+          "example": 200.5
+        },
+        "total_amount": {
+          "type": "number",
+          "format": "double",
+          "example": 200.5
+        },
+        "order_is_paid": {
+          "type": "integer",
+          "example": 0,
+          "description": "0 --> Paid 1 --> not Paid ",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "task_is_paid": {
+          "type": "integer",
+          "example": 0,
+          "description": "1 --> Paid 0 --> not Paid ",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "is_cancelled": {
+          "type": "integer",
+          "example": 0,
+          "description": "1 --> True 0 --> False ",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "is_completed": {
+          "type": "integer",
+          "example": 0,
+          "description": "1 --> True 0 --> False ",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "rv_customer_on_task": {
+          "type": "integer",
+          "example": 0,
+          "description": "1 -> customer cancel_review , 0 -> customer review ",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "fences_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "customers_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "branches_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "task_statuses_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "business_templates_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "custom_fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/custom_fields"
+          }
+        }
+      }
+    },
+    "job_addresses": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "location": {
+          "type": "string",
+          "example": "Location Name"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "example": 30.2254
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "example": 30.2254
+        },
+        "comment": {
+          "type": "string",
+          "example": "notes"
+        },
+        "additional_instructions": {
+          "type": "string",
+          "example": ""
+        },
+        "type": {
+          "type": "string",
+          "example": "origin",
+          "description": "origin, destination, agent_start_point",
+          "enum": [
+            "agent_start_point",
+            "origin",
+            "destination"
+          ]
+        }
+      }
+    },
+    "custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "field_label": {
+            "type": "string",
+            "example": "test1"
+          },
+          "field_name": {
+            "type": "string",
+            "example": "dropdown_select"
+          },
+          "field_type": {
+            "type": "string",
+            "example": "Dropdown_Select",
+            "enum": [
+              "Dropdown_Select",
+              "Checkbox",
+              "Checklist",
+              "Date",
+              "Date-Future",
+              "Date-Past",
+              "Date-Time",
+              "Datetime-Future",
+              "Datetime-Past",
+              "Table",
+              "Email",
+              "Image",
+              "Number",
+              "Telephone",
+              "Text",
+              "Document",
+              "URL",
+              "Barcode",
+              "Signature"
+            ]
+          },
+          "can_edit": {
+            "type": "boolean",
+            "example": true
+          },
+          "field_default_value": {
+            "type": "string",
+            "example": "label_1|option_1|1;label_2|option_2|0;label_3|option_3|1"
+          },
+          "field_width": {
+            "type": "string",
+            "example": 12
+          },
+          "field_required": {
+            "type": "integer",
+            "example": 1,
+            "description": "0 --> not required 1 --> required ",
+            "enum": [
+              0,
+              1
+            ]
+          },
+          "min": {
+            "type": "string",
+            "example": 12,
+            "description": "minmum number of image and decoument"
+          },
+          "max": {
+            "type": "string",
+            "example": 12,
+            "description": "maximum number of image and decoument"
+          },
+          "field_value": {
+            "type": "string",
+            "example": "",
+            "enum": [
+              "Dropdown_Select will be null",
+              "Checkbox will be 0 or 1",
+              "Checklist will be null ",
+              "Date will be 2008-12-1",
+              "Date-Future will be 2019-12-1",
+              "Date-Past  will be 2008-12-1",
+              "Date-Time  will be 2018-08-02 09:17:02 ",
+              "Datetime-Future  will be 2019-08-02 09:17:02",
+              "Datetime-Past will be 2018-08-02 09:17:02",
+              "Table will be null",
+              "Email will be a@gmail.com",
+              "Image will be image url",
+              "Number will be  number for example 44",
+              "Telephone will be  Telephone for example 01273734701",
+              "Text will be  text for example ahmed mosad",
+              "Document Document url"
+            ]
+          },
+          "field_multi_values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "field_value": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "selected": {
+                  "type": "integer",
+                  "example": 1,
+                  "description": "1 --> selected  0 --> not selected ",
+                  "enum": [
+                    0,
+                    1
+                  ]
+                }
+              }
+            }
+          },
+          "field_table_columns": {
+            "type": "object",
+            "properties": {
+              "col 1": {
+                "type": "object",
+                "properties": {
+                  "column_label": {
+                    "type": "string",
+                    "example": "col 1"
+                  },
+                  "column_name": {
+                    "type": "string",
+                    "example": "col_1"
+                  },
+                  "column_type": {
+                    "type": "string",
+                    "example": "number",
+                    "enum": [
+                      "number",
+                      "text",
+                      "address",
+                      "phone",
+                      "status"
+                    ]
+                  },
+                  "column_can_edit": {
+                    "type": "integer",
+                    "example": true
+                  },
+                  "field_file_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "example": "https://amexen.com/amexen_platformsrc/amexen_8WIrwJ_acc1/task_signature/2_1543326026.JPG"
+                    }
+                  },
+                  "column_required": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "field_table_entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/field_table_entry"
+            }
+          }
+        }
+      }
+    },
+    "field_table_entry": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "column_name": {
+            "type": "string",
+            "example": "col_1"
+          },
+          "column_value": {
+            "type": "string",
+            "example": "col_1",
+            "description": "at status there are three status (pending , completed , canceled) , at phone  it start with 0 and from 10 to 14 at address it must be string  at text it must me at least 2 and max 255 , at number must be numiric at least 1  "
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "example": 310.25741
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "example": 310.25741
+          }
+        }
+      }
+    },
+    "update_job_status_body": {
+      "type": "object",
+      "properties": {
+        "job_id": {
+          "type": "integer",
+          "example": "4"
+        },
+        "status": {
+          "type": "string",
+          "example": "Started"
+        },
+        "collected_amount": {
+          "type": "number",
+          "format": "double",
+          "example": 310.25741
+        }
+      }
+    },
+    "customer_address_book_add_body": {
+      "type": "object",
+      "required": [
+        "location",
+        "latitude"
+      ],
+      "properties": {
+        "location": {
+          "type": "string",
+          "example": "Tanta"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "example": 310.25741
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "example": 30.25587
+        },
+        "comment": {
+          "type": "string",
+          "example": "comment"
+        },
+        "customers_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "fances_id_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "additional_instructions": {
+          "type": "string",
+          "example": "additional "
+        }
+      }
+    },
+    "customer_address_book_edit_body": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "example": "Tanta"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "example": 310.25741
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "example": 30.25587
+        },
+        "comment": {
+          "type": "string",
+          "example": "comment"
+        },
+        "customers_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "fances_id_id": {
+          "type": "integer",
+          "example": 1
+        },
+        "additional_instructions": {
+          "type": "string",
+          "example": "additional "
+        }
+      }
+    },
+    "customer_address_book_add": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data added successfully"
+            }
+          }
+        },
+        "id": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "customer_address_book_edit": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Updated successfully"
+            }
+          }
+        }
+      }
+    },
+    "customer_address_book_delete": {
+      "type": "object",
+      "required": [
+        "name",
+        "photoUrls"
+      ],
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Deleted successfully"
+            }
+          }
+        }
+      }
+    },
+    "data_delete": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Deleted successfully"
+            }
+          }
+        }
+      }
+    },
+    "data_updated": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Updated successfully"
+            }
+          }
+        }
+      }
+    },
+    "data_added": {
+      "type": "object",
+      "properties": {
+        "api_status": {
+          "type": "integer",
+          "example": 1
+        },
+        "api_http": {
+          "type": "integer",
+          "example": 200
+        },
+        "api_message": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "success"
+            },
+            "message": {
+              "type": "string",
+              "example": "Data Added successfully"
+            }
+          }
+        },
+        "additional": {
+          "type": "string",
+          "example": "1"
+        }
+      }
+    },
+    "daily_earning": {
+      "type": "object",
+      "properties": {
+        "daily_earning": {
+          "type": "integer",
+          "example": 100
+        },
+        "date": {
+          "type": "string",
+          "example": "10-04-1993"
+        }
+      }
+    },
+    "job_calculation": {
+      "type": "object",
+      "properties": {
+        "final_fare": {
+          "type": "number",
+          "example": 100,
+          "format": "double"
+        },
+        "base_fare": {
+          "type": "number",
+          "example": 100,
+          "format": "double"
+        },
+        "distance_fare": {
+          "type": "number",
+          "example": 100,
+          "format": "double"
+        },
+        "waiting_fare": {
+          "type": "number",
+          "example": 100,
+          "format": "double"
+        },
+        "time_fare": {
+          "type": "number",
+          "example": 100,
+          "format": "double"
+        },
+        "deduction": {
+          "type": "number",
+          "example": 100,
+          "format": "double"
+        },
+        "cal_method": {
+          "type": "string",
+          "example": "Variable"
+        }
+      }
+    },
+    "job_earning_details": {
+      "type": "object",
+      "properties": {
+        "job_type": {
+          "type": "string",
+          "example": "pickup"
+        },
+        "Agent_Earning": {
+          "$ref": "#/definitions/job_calculation"
+        },
+        "Task_Pricing": {
+          "$ref": "#/definitions/job_calculation"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "host": "amexen.com",
+  "basePath": "/amexen_platform/api",
+  "schemes": [
+    "https",
+    "http"
+  ]
+}
